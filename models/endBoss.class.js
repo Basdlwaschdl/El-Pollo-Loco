@@ -2,13 +2,15 @@ class EndBoss extends MoveObject {
 
 
     offset = { top: 80, bottom: 20, left: 50, right: 50 };
-    energy = 100;
+    energy = 10;
     hurt = false;
-    intervall;
+    endBossIntervall;
     attack = false;
     attackDistance;
+    endBossBattle_sound = new Audio('audio/endBossbattle.mp3');
     endBossHurt_sound = new Audio('audio/ensBossHurt.mp3');
-
+    characterWin_sound = new Audio('audio/yee-haw.mp3');
+    
     imgDead = [
         'img/4_enemie_boss_chicken/5_dead/G24.png',
         'img/4_enemie_boss_chicken/5_dead/G25.png',
@@ -59,7 +61,7 @@ class EndBoss extends MoveObject {
         this.loadArray(this.imgAttack);
         this.applyGravaty();
         this.showAnimation();
-        this.speed = 27;
+        this.speed = 30;
         this.x = 6500;
         this.y = 290;
         this.width = 400;
@@ -67,11 +69,12 @@ class EndBoss extends MoveObject {
 
 
     showAnimation() {
-        this.intervall = setInterval(() => {
+        this.endBossIntervall = setInterval(() => {
             this.endBossHurt();
             this.endbossAlert();
             this.endBossDead();
             this.battleAnimation()
+            this.playEndBattle_sound();
         }, 100);
     };
 
@@ -95,12 +98,13 @@ class EndBoss extends MoveObject {
 
     endBossDead() {
         if (this.energy < 1) {
+            clearInterval(this.endBossIntervall)
+            this.endBossBattle_sound.pause();
+            this.characterWin_sound.play();
             this.playAnimation(this.imgDead);
             setTimeout(() => {
                 this.loadImage(this.imgDead[2])
-                clearInterval(this.intervall)
             }, 500);
-            clearInterval(this.intervall);
             world.gameWin();
         }
     };
@@ -133,5 +137,12 @@ class EndBoss extends MoveObject {
 
     characterInSight() {
         return this.attackDistance < 800 && this.energy > 0 && !this.hurt;
+    };
+
+
+    playEndBattle_sound() {
+        if (this.world.character.x > 5000 && this.energy > 0) {
+            this.endBossBattle_sound.play();
+        }
     };
 };

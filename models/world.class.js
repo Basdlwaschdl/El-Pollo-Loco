@@ -16,7 +16,7 @@ class World {
     throwAbleoject = new ThrowableObjects;
     bottle = new Bottle;
     ctx;
-    intervall;
+    checkIventsintervall;
     throwDelay = false;
     canvas;
     keyboard;
@@ -41,7 +41,7 @@ class World {
 
 
     checkEvents() {
-        this.intervall = setInterval(() => {
+        this.checkIventsintervall = setInterval(() => {
             this.checkCollisionEnemy();
             this.checkCollisionBottle();
             this.checkCollisionCoin();
@@ -186,12 +186,9 @@ class World {
 
 
     gameWin() {
-        clearInterval(this.intervall);
+        clearInterval(this.checkIventsintervall);
         this.character.gameOver = true;
-        new Audio('audio/yee-haw.mp3').play();
-        setTimeout(() => {
-            this.character.winGameAnimation();
-        }, 500);
+        this.character.winGameAnimation();
     };
 
 

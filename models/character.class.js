@@ -2,12 +2,14 @@ class Character extends MoveObject {
 
     world;
     energy = 100;
-    intervall;
+    characterIntervall;
     hurtSound = new Audio('audio/hurt.mp3');
     offset = { top: 150, bottom: 10, left: 50, right: 50 };
     gameOver;
     x;
     winGame = false;
+    gamewin_sound = new Audio('audio/gameWin.mp3');
+
 
     imgIdle = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -73,7 +75,7 @@ class Character extends MoveObject {
 
 
     animate() {
-        this.intervall = setInterval(() => this.animateCharacter(), 80);
+        this.characterIntervall = setInterval(() => this.animateCharacter() ,80);
         setInterval(() => this.moveCharacter(), 8);
     };
 
@@ -109,6 +111,7 @@ class Character extends MoveObject {
         };
         if (this.energy < 1) {
             this.gameOver = true;
+            clearInterval(this.characterIntervall);
             this.characterIsDeathAnimation();
         }
     };
@@ -129,14 +132,14 @@ class Character extends MoveObject {
 
 
     winGameAnimation() {
-        clearInterval(this.intervall);
+        clearInterval(this.characterIntervall);
         this.directionLeft = false;
         this.loadImage(this.imgJump[3]);
         this.jump();
         setTimeout(() => {
-            setInterval(() => this.moveRight(5), 5);
+            this.gamewin_sound.play();
+            setInterval(() => this.moveRight(9), 10);
             setInterval(() => this.playAnimation(this.imgWalking), 50);
-        }, 1500);
-        
+        }, 1500);   
     }
 };
