@@ -9,6 +9,7 @@ class Character extends MoveObject {
     x;
     winGame = false;
     gamewin_sound = new Audio('audio/gameWin.mp3');
+    jumpEnemy = false;
 
 
     imgIdle = [
@@ -75,7 +76,7 @@ class Character extends MoveObject {
 
 
     animate() {
-        this.characterIntervall = setInterval(() => this.animateCharacter() ,80);
+        this.characterIntervall = setInterval(() => this.animateCharacter(), 80);
         setInterval(() => this.moveCharacter(), 8);
     };
 
@@ -91,6 +92,7 @@ class Character extends MoveObject {
                 this.directionLeft = true;
             }
             if (this.world.keyboard.jump && !this.objectOnGround()) {
+                jump_sound.play();
                 this.jump();
                 this.currentImg = 0;
             }
@@ -108,7 +110,7 @@ class Character extends MoveObject {
             this.characterIshurt();
         } else {
             this.jumpOrwalk();
-        };
+        }
         if (this.energy < 1) {
             this.gameOver = true;
             clearInterval(this.characterIntervall);
@@ -118,12 +120,12 @@ class Character extends MoveObject {
 
 
     characterWalk() {
-        return !this.gameOver && this.x < this.world.level.level_end_x && this.world.keyboard.right || !this.gameOver && this.world.keyboard.left && this.x > 0
+        return !this.gameOver && this.x < this.world.level.level_end_x && this.world.keyboard.right || !this.gameOver && this.world.keyboard.left && this.x > 0 
     };
 
 
     jumpOrwalk() {
-        if (this.currentImg < 9 && this.objectOnGround()) {
+        if (this.currentImg < 9 && this.objectOnGround() || this.jumpEnemy) {
             this.playAnimation(this.imgJump);
         } else if (this.characterWalk()) {
             this.playAnimation(this.imgWalking);
@@ -140,6 +142,13 @@ class Character extends MoveObject {
             this.gamewin_sound.play();
             setInterval(() => this.moveRight(9), 10);
             setInterval(() => this.playAnimation(this.imgWalking), 50);
-        }, 1500);   
-    }
+            endScreen('win');
+        }, 1500);
+    };
+
+
+    characterIsDeathAnimation() {
+        this.loadImage(this.imgDeath[5]);
+        this.gameLost();
+    };
 };

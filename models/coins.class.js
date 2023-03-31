@@ -19,7 +19,7 @@ class Coin extends MoveObject {
         this.y = 300;
         this.width = 50;
         this.height = 50;
-        this.animate();    
+        this.animate();
     }
 
     animate() {

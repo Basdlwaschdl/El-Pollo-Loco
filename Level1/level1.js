@@ -1,4 +1,5 @@
 let level1;
+let imgLeft = 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png';
 function startLevel() {
 
     level1 = new Level(
@@ -104,17 +105,14 @@ function startLevel() {
             new Bottle(250, 585),
             new Bottle(300, 585),
             new Bottle(800, 585),
-            new Bottle(820, 585),
             new Bottle(1000, 585),
             new Bottle(1200, 585),
             new Bottle(1550, 585),
             new Bottle(1590, 585),
             new Bottle(2000, 585),
-            new Bottle(2050, 585),
             new Bottle(2200, 585),
             new Bottle(2500, 585),
             new Bottle(2850, 585),
-            new Bottle(3200, 585),
             new Bottle(3300, 585),
             new Bottle(3400, 585),
             new Bottle(3750, 585),

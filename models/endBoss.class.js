@@ -2,15 +2,16 @@ class EndBoss extends MoveObject {
 
 
     offset = { top: 80, bottom: 20, left: 50, right: 50 };
-    energy = 10;
+    energy = 100;
     hurt = false;
     endBossIntervall;
     attack = false;
     attackDistance;
+    endBattle = false;
     endBossBattle_sound = new Audio('audio/endBossbattle.mp3');
     endBossHurt_sound = new Audio('audio/ensBossHurt.mp3');
     characterWin_sound = new Audio('audio/yee-haw.mp3');
-    
+
     imgDead = [
         'img/4_enemie_boss_chicken/5_dead/G24.png',
         'img/4_enemie_boss_chicken/5_dead/G25.png',
@@ -59,9 +60,8 @@ class EndBoss extends MoveObject {
         this.loadArray(this.imgDead);
         this.loadArray(this.imgWalk);
         this.loadArray(this.imgAttack);
-        this.applyGravaty();
         this.showAnimation();
-        this.speed = 30;
+        this.speed = 35;
         this.x = 6500;
         this.y = 290;
         this.width = 400;
@@ -70,7 +70,7 @@ class EndBoss extends MoveObject {
 
     showAnimation() {
         this.endBossIntervall = setInterval(() => {
-            this.endBossHurt();
+            this.endBossHurtOrDead();
             this.endbossAlert();
             this.endBossDead();
             this.battleAnimation()
@@ -80,33 +80,42 @@ class EndBoss extends MoveObject {
 
 
     endbossAlert() {
-        if (!this.hurt && !this.attack)
+        if (!this.hurt && !this.attack && this.energy > 0 || this.attackDistance > 500)
             this.playAnimation(this.imgAlert);
     };
 
 
-    endBossHurt() {
-        if (this.hurt) {
+    endBossHurtOrDead() {
+        if (this.hurt && this.energy > 0) {
             this.endBossHurt_sound.play();
             this.playAnimation(this.imgHurt);
-            setTimeout(() => {
-                this.hurt = false
-            }, 1000);
+            this.moveRight(this.speed)
+            setTimeout(() => this.hurt = false, 500);
         }
     };
 
 
     endBossDead() {
         if (this.energy < 1) {
-            clearInterval(this.endBossIntervall)
-            this.endBossBattle_sound.pause();
-            this.characterWin_sound.play();
-            this.playAnimation(this.imgDead);
-            setTimeout(() => {
-                this.loadImage(this.imgDead[2])
-            }, 500);
-            world.gameWin();
+            clearInterval(this.endBossIntervall);
+            this.endBossHurt_sound.play();
+            let deadInterval = setInterval(() => {
+                this.playAnimation(this.imgDead)
+                this.moveRight(this.speed)
+            }, 100);
+            this.initEndgame(deadInterval);
         }
+    };
+
+
+    initEndgame(deadInterval) {
+        this.endBossBattle_sound.pause();
+        this.characterWin_sound.play();
+        setTimeout(() => {
+            this.loadImage(this.imgDead[2]);
+            clearInterval(deadInterval);
+        }, 800);
+        world.gameWin();
     };
 
 
@@ -115,13 +124,8 @@ class EndBoss extends MoveObject {
         if (this.characterInSight()) {
             this.attackCharacter();
         }
-        if (this.hurt) {
-            this.moveRight(this.speed)
-        }
-        else if (this.attackDistance < 500 && this.energy > 0 && !this.hurt) {
-            this.playAnimation(this.imgAttack)
-        }
         if (this.world.character.energy < 1) {
+            this.endBossBattle_sound.pause();
             this.speed = 0;
             this.playAnimation(this.imgAttack)
         }
@@ -130,19 +134,28 @@ class EndBoss extends MoveObject {
 
     attackCharacter() {
         this.attack = true;
-        this.playAnimation(this.imgWalk)
+        if (this.attackDistance < 500) {
+            this.playAnimation(this.imgWalk)
+        }
+        if (this.attackDistance < 800) {
+            this.playAnimation(this.imgAttack)
+        }
         this.moveLeft(this.speed);
     };
 
 
     characterInSight() {
-        return this.attackDistance < 800 && this.energy > 0 && !this.hurt;
+        return this.attackDistance < 800 && !this.hurt;
     };
 
 
     playEndBattle_sound() {
-        if (this.world.character.x > 5000 && this.energy > 0) {
+        if (this.world.character.x > 5300 && this.energy > 0) {
             this.endBossBattle_sound.play();
+            this.endBattle = true;
+        }
+        if (this.world.character.gameOver) {
+            this.endBossBattle_sound.pause();
         }
     };
 };

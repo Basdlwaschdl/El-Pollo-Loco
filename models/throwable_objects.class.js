@@ -8,12 +8,12 @@ class ThrowableObjects extends MoveObject {
     ];
 
     offset = { top: 20, bottom: 20, left: 20, right: 20 };
-    directionLeft;
+    directionLeft = false;
 
     constructor(x, y, directionLeft) {
         super(), this.loadImage(this.imgThrowBottle[0]);
         this.directionLeft = directionLeft;
-        this.speed = 7;
+        this.speed = 6;
         this.width = 80;
         this.height = 100;
         this.x = x + 50;
@@ -38,9 +38,7 @@ class ThrowableObjects extends MoveObject {
 
 
     animateBottleRotate() {
-        setInterval(() => {
-            this.playAnimation(this.imgThrowBottle);
-        }, 50);
+        setInterval(() => this.playAnimation(this.imgThrowBottle), 50);
     };
 }
 

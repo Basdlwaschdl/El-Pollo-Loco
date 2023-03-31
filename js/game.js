@@ -1,14 +1,40 @@
 let canvas;
+let gameRun = false;
 let world;
 let ctx;
 let keyboard = new Keybord;
 jump_sound = new Audio('audio/jump.mp3');
 
 
+function endScreen(x) {
+    setTimeout(() => {
+        clearAllIntervals();
+        deleteClasses();
+        if (x == 'lost') {
+            showLostScreen();
+        } else {
+            showWinScreen();
+        }
+    }, 1500);
+}
 
 
-    
+function showLostScreen() {
+    document.getElementById('lostScreen').style.transform = 'scale(1)';
+    setTimeout(() => {
+        document.getElementById('startGame').style.display = '';
+        document.getElementById('lostScreen').style.transform = 'scale(0)';
+    }, 3000);
+};
 
+
+function showWinScreen() {
+    document.getElementById('winScreen').style.transform = 'scale(1)';
+    setTimeout(() => {
+        document.getElementById('startGame').style.display = '';
+        document.getElementById('winScreen').style.transform = 'scale(0)';
+    }, 3000);
+};
 
 
 function startGame() {
@@ -17,11 +43,20 @@ function startGame() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     world = new World(canvas, keyboard);
+};
+
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++)  window.clearInterval(i);
+};
+
+
+function deleteClasses() {
+    world = undefined;
 }
 
 
 document.addEventListener("keypress", (event) => {
-
     if (event.key == 'd') {
         keyboard.right = true;
     }
@@ -34,12 +69,7 @@ document.addEventListener("keypress", (event) => {
 
     if (event.key == 'w') {
         keyboard.jump = true;
-
     }
-});
-
-
-document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keyup", (event) => {
@@ -54,6 +84,8 @@ document.addEventListener("keyup", (event) => {
     }
     if (event.key == 'w') {
         keyboard.jump = false;
-        jump_sound.play();
     }
 });
+
+
+

@@ -12,11 +12,12 @@ class World {
     statusBar = new StatusBar;
     statusBar_bottles = new StatusBar_Bottles;
     statusBar_coins = new StatusBar_Coins;
+    statusBar_endBoss = new StatusBar_EndBoss;
     chicken = new Chicken;
     throwAbleoject = new ThrowableObjects;
     bottle = new Bottle;
     ctx;
-    checkIventsintervall;
+    checkEventsintervall;
     throwDelay = false;
     canvas;
     keyboard;
@@ -41,7 +42,7 @@ class World {
 
 
     checkEvents() {
-        this.checkIventsintervall = setInterval(() => {
+        this.checkEventsintervall = setInterval(() => {
             this.checkCollisionEnemy();
             this.checkCollisionBottle();
             this.checkCollisionCoin();
@@ -116,6 +117,7 @@ class World {
 
     hitEndboss(bottle) {
         this.endBoss.energy -= 15;
+        this.statusBar_endBoss.showHealthStatus(this.endBoss.energy);
         let i = this.throwAbleojects.indexOf(bottle);
         this.throwAbleojects.splice(i, 1);
         this.endBoss.hurt = true;
@@ -137,7 +139,7 @@ class World {
         this.hurt = false;
         this.level.enemys.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.y < 280 && this.character.speed_y <= 0 && this.character.energy > 0) {
-                this.character.jump();
+                this.character.jumpFromEnemy();
                 this.deadEnemy(enemy);
                 this.playAudio(enemy);
             }
@@ -186,7 +188,7 @@ class World {
 
 
     gameWin() {
-        clearInterval(this.checkIventsintervall);
+        clearInterval(this.checkEventsintervall);
         this.character.gameOver = true;
         this.character.winGameAnimation();
     };
@@ -198,6 +200,7 @@ class World {
         this.drawBackground();
         this.drawStuff();
         this.addObjectToCanvas(this.character);
+        this.addArrayToCanvas(this.throwAbleojects);
         this.drawEnemys();
         this.ctx.translate(-this.camera_x, this.camera_y);
         this.drawStatusBars();
@@ -214,6 +217,9 @@ class World {
         this.addObjectToCanvas(this.statusBar);
         this.addObjectToCanvas(this.statusBar_bottles);
         this.addObjectToCanvas(this.statusBar_coins);
+        if (this.endBoss.endBattle) {
+        this.addObjectToCanvas(this.statusBar_endBoss);
+        }
         this.ctx.font = "30px Roboto";
         this.ctx.fillStyle = "black";
         this.ctx.fillText(this.bottleAmount.length, 380, 80);
@@ -238,7 +244,7 @@ class World {
     drawStuff() {
         this.addArrayToCanvas(this.level.coin);
         this.addArrayToCanvas(this.level.bottle);
-        this.addArrayToCanvas(this.throwAbleojects);
+        
         this.addArrayToCanvas(this.brokenBottles);
     }
 
