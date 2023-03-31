@@ -9,6 +9,7 @@ class MoveObject extends DrawableObject {
     offset = { top: 0, bottom: 0, left: 0, right: 0 };
     index;
 
+    
     isColliding(object) {
         return this.x + this.width - this.offset.right > object.x + object.offset.left &&
             this.y + this.height - this.offset.bottom > object.y + object.offset.top &&
@@ -19,7 +20,7 @@ class MoveObject extends DrawableObject {
 
     objectHit() {
         if (this.energy > 0) {
-            this.energy -= 1;
+            this.energy -= 2;
         }
     };
 
@@ -86,10 +87,10 @@ class MoveObject extends DrawableObject {
     };
 
 
-    characterIsDeathAnimation() {
-        this.loadImage(this.imgDeath[5]);
-        clearInterval(this.intervall);
-        this.gameLost();
+    jumpFromEnemy() {
+        this.jumpEnemy = true;
+        setTimeout(() => this.jumpEnemy = false, 1000);
+        this.speed_y = 21;
     };
 
 
@@ -101,6 +102,7 @@ class MoveObject extends DrawableObject {
                 this.y -= this.speed_y;
                 this.speed_y -= this.acceleration;
             }, 30);
+            endScreen('lost');
         }, 800);
     };
 };
