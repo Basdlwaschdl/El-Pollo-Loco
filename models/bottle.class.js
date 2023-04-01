@@ -16,7 +16,6 @@ class Bottle extends MoveObject {
     x;
     y;
     hit;
-    i;
 
     constructor(x, y, hit) {
         super().loadImage(this.imgBottle);
@@ -27,6 +26,7 @@ class Bottle extends MoveObject {
         this.width = 80;
         this.loadArray(this.imgBottle_splash);
         this.animate();
+        this.loadImg();
     };
 
 
@@ -36,5 +36,13 @@ class Bottle extends MoveObject {
                 this.playAnimation(this.imgBottle_splash);
             }, 100);
         };
+    };
+
+
+    loadImg() {
+        getBottleImg++
+        if (getBottleImg % 2 == 0) {
+            this.loadImage(this.imgBottleleft)
+        }
     };
 };

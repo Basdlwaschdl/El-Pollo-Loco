@@ -2,8 +2,10 @@ let canvas;
 let gameRun = false;
 let world;
 let ctx;
+let getBottleImg = 0;
 let keyboard = new Keybord;
-jump_sound = new Audio('audio/jump.mp3');
+let music = true;
+let jump_sound = new Audio('audio/jump.mp3');
 
 
 function endScreen(x) {
@@ -53,7 +55,18 @@ function clearAllIntervals() {
 
 function deleteClasses() {
     world = undefined;
-}
+};
+
+
+function muteMusic() {
+    if ( music ) {
+    document.getElementById('musicButton').innerHTML = `<img src="img/icons/mute.png">`;
+    music = false
+    } else {
+        document.getElementById('musicButton').innerHTML = `<img src="img/icons/speaker.png">`;
+        music = true;
+    }
+};
 
 
 document.addEventListener("keypress", (event) => {
