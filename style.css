@@ -3,6 +3,26 @@
     src: url("fonts/Zabars.ttf");
 }
 
+@font-face {
+    font-family: "Mexicana";
+    src: url("fonts/Mexicana.ttf");
+}
+
+h1 {
+    border-bottom: 2px solid;
+    margin-top: 8%;
+    font-size: 5rem;
+}
+
+table {
+    margin-top: 10%;
+    text-align: left;
+}
+
+th {
+    padding-right: 50px;
+}
+
 body {
     margin: 0;
     font-family: Zabars;
@@ -39,7 +59,21 @@ body {
     }
 }
 
-.music_button {
+.buttons {
+    position: absolute;
+    display: flex;
+}
+
+.buttons img {
+    width: 35px !important;
+}
+
+.info_button:hover {
+    cursor: pointer;
+}
+
+.info_button {
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,12 +87,40 @@ body {
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.54);
 }
 
-.music_button img {
+.info_box {
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 4px solid;
+    transform: scale(0);
+    transition: 300ms;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 35px;
+    font-family: Mexicana;
     position: absolute;
-    width: 35px;
+    z-index: 5;
+    background: rgb(255, 222, 1);
+    background: radial-gradient(circle, rgba(255, 222, 1, 1) 0%, rgba(255, 156, 0, 1) 100%);
+    width: 100%;
+    height: 100%;
+}
+
+.close_info {
+    margin-top: 8%;
+    border-bottom: 4px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.close_info:hover {
+    cursor: pointer;
+    border-bottom: 4px solid rgb(0, 0, 0);
+    transition: all 0.2s ease-in-out;
+
 }
 
 .start_img {
+    border-radius: 10px;
     display: block;
     z-index: 4;
     position: absolute;
@@ -69,10 +131,12 @@ body {
 }
 
 .start_img img {
+    border-radius: 10px;
     width: 100%;
 }
 
 .lost_Screen {
+    border-radius: 10px;
     display: block;
     position: absolute;
     z-index: 3;
@@ -83,6 +147,7 @@ body {
 }
 
 .lost_Screen img {
+    border-radius: 10px;
     transform: scale(0);
     transition: 500ms;
     width: 100%;
@@ -91,6 +156,7 @@ body {
 }
 
 .win_Screen {
+    border-radius: 10px;
     display: block;
     position: absolute;
     z-index: 3;
@@ -101,6 +167,7 @@ body {
 }
 
 .win_Screen img {
+    border-radius: 10px;
     transform: scale(0);
     transition: 500ms;
     width: 100%;
@@ -116,6 +183,7 @@ body {
 }
 
 canvas {
+    border-radius: 10px;
     display: block;
     z-index: 1;
     position: absolute;
@@ -143,6 +211,10 @@ canvas {
     .win_Screen {
         width: 100%;
     }
+
+    .info_box {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-height : 720px) {
@@ -160,5 +232,63 @@ canvas {
 
     .win_Screen {
         height: 100vh;
+    }
+
+    .info_box {
+        height: 100vh;
+    }
+}
+
+@media (max-width: 1100px) {
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .info_box {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    h1 {
+        font-size: 30px;
+        margin: 30px;
+        margin-bottom: 20px;
+    }
+
+    .info_box {
+        font-size: 15px;
+    }
+
+    .close_info {
+        margin-top: 3%;
+    }
+
+    .start_button {
+        font-size: 20px;
+        height: 30px;
+    }
+
+    .info_button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .buttons img {
+        width: 25px !important;
+    }
+}
+
+@media (max-width: 450px) {
+    table {
+        margin-top: 0;
+    }
+
+    h1 {
+        font-size: 20px;
     }
 }

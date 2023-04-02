@@ -9,6 +9,17 @@ let jump_sound = new Audio('audio/jump.mp3');
 let background_sound = new Audio('audio/bgrMusic.mp3');
 
 
+function startGame() {
+    startLevel();
+    background_sound.pause();
+    document.getElementById('startimg').style.display = 'none';
+    document.getElementById('startimg').style.zIndex = '2';
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    world = new World(canvas, keyboard);
+};
+
+
 function endScreen(x) {
     document.getElementById('startimg').style.zIndex = '2';
     setTimeout(() => {
@@ -19,7 +30,7 @@ function endScreen(x) {
             showWinScreen();
         }
         setTimeout(() => document.getElementById('startimg').style.zIndex = '4', 3500);
-    }, 1500);   
+    }, 1500);
 };
 
 
@@ -41,17 +52,6 @@ function showWinScreen() {
 };
 
 
-function startGame() {
-    startLevel();
-    background_sound.pause();
-    document.getElementById('startimg').style.display = 'none';
-    document.getElementById('startimg').style.zIndex = '2';
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-    world = new World(canvas, keyboard);
-};
-
-
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++)  window.clearInterval(i);
 };
@@ -60,6 +60,21 @@ function clearAllIntervals() {
 function deleteClasses() {
     world = undefined;
 };
+
+
+async function init() {
+    await loadAllImages();
+};
+
+
+function showInfo() {
+    document.getElementById('infoBox').style.transform = 'scale(1)';
+}
+
+
+function closeInfoBox() {
+    document.getElementById('infoBox').style.transform = 'scale(0)';
+}
 
 
 function muteMusic() {
@@ -73,11 +88,6 @@ function muteMusic() {
         background_sound.play();
     }
 };
-
-
-function playMusic() {
-    background_sound.play();
-}
 
 
 document.addEventListener("keypress", (event) => {
