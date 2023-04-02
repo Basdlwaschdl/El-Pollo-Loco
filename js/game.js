@@ -6,34 +6,36 @@ let getBottleImg = 0;
 let keyboard = new Keybord;
 let music = true;
 let jump_sound = new Audio('audio/jump.mp3');
+let background_sound = new Audio('audio/bgrMusic.mp3');
 
 
 function endScreen(x) {
+    document.getElementById('startimg').style.zIndex = '2';
     setTimeout(() => {
         clearAllIntervals();
-        deleteClasses();
         if (x == 'lost') {
             showLostScreen();
         } else {
             showWinScreen();
         }
-    }, 1500);
-}
+        setTimeout(() => document.getElementById('startimg').style.zIndex = '4', 3500);
+    }, 1500);   
+};
 
 
 function showLostScreen() {
     document.getElementById('lostScreen').style.transform = 'scale(1)';
     setTimeout(() => {
-        document.getElementById('startGame').style.display = '';
+        document.getElementById('startimg').style.display = '';
         document.getElementById('lostScreen').style.transform = 'scale(0)';
-    }, 3000);
+    }, 3000)
 };
 
 
 function showWinScreen() {
     document.getElementById('winScreen').style.transform = 'scale(1)';
     setTimeout(() => {
-        document.getElementById('startGame').style.display = '';
+        document.getElementById('startimg').style.display = '';
         document.getElementById('winScreen').style.transform = 'scale(0)';
     }, 3000);
 };
@@ -41,7 +43,9 @@ function showWinScreen() {
 
 function startGame() {
     startLevel();
-    document.getElementById('startGame').style.display = 'none';
+    background_sound.pause();
+    document.getElementById('startimg').style.display = 'none';
+    document.getElementById('startimg').style.zIndex = '2';
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     world = new World(canvas, keyboard);
@@ -59,14 +63,21 @@ function deleteClasses() {
 
 
 function muteMusic() {
-    if ( music ) {
-    document.getElementById('musicButton').innerHTML = `<img src="img/icons/mute.png">`;
-    music = false
+    if (music) {
+        document.getElementById('musicButton').innerHTML = `<img src="img/icons/mute.png">`;
+        music = false
+        background_sound.pause();
     } else {
         document.getElementById('musicButton').innerHTML = `<img src="img/icons/speaker.png">`;
         music = true;
+        background_sound.play();
     }
 };
+
+
+function playMusic() {
+    background_sound.play();
+}
 
 
 document.addEventListener("keypress", (event) => {

@@ -2,7 +2,7 @@ class EndBoss extends MoveObject {
 
 
     offset = { top: 80, bottom: 20, left: 50, right: 50 };
-    energy = 100;
+    energy = 10;
     hurt = false;
     endBossIntervall;
     attack = false;
@@ -62,7 +62,7 @@ class EndBoss extends MoveObject {
         this.loadArray(this.imgAttack);
         this.showAnimation();
         this.speed = 35;
-        this.x = 6500;
+        this.x = 1500;
         this.y = 290;
         this.width = 400;
     };

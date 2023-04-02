@@ -9,19 +9,24 @@ body {
 }
 
 .start_button {
-    margin-top: 100px;
-    margin-left: calc(50% - 75px);
+    position: absolute;
+    top: 12%;
+    left: calc(50% - 7.5%);
     font-size: 30px;
     font-family: Zabars;
     border-radius: 10px;
     border: 3px solid black;
-    width: 150px;
+    width: 15%;
     height: 50px;
     background: rgb(255, 222, 1);
     background: radial-gradient(circle, rgba(255, 222, 1, 1) 0%, rgba(255, 156, 0, 1) 100%);
     animation: pulse 1500ms infinite;
     -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.54);
     box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.54);
+}
+
+.start_button:hover {
+    cursor: pointer;
 }
 
 @keyframes pulse {
@@ -49,51 +54,57 @@ body {
 }
 
 .music_button img {
+    position: absolute;
     width: 35px;
 }
 
-.start_button:hover {
-    cursor: pointer;
-}
-
 .start_img {
-    background-image: url('img/9_intro_outro_screens/start/startscreen_2.png');
-    background-size: contain;
-    z-index: 2;
+    display: block;
+    z-index: 4;
     position: absolute;
     width: 1280px;
-    height: 720px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+.start_img img {
+    width: 100%;
+}
+
 .lost_Screen {
-    background-image: url(img/9_intro_outro_screens/lose.jpg);
-    background-size: cover;
-    background-position: center;
+    display: block;
+    position: absolute;
     z-index: 3;
+    width: 1280px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lost_Screen img {
     transform: scale(0);
     transition: 500ms;
-    position: absolute;
-    width: 1280px;
-    height: 720px;
-    top: calc(50% - 360px);
-    left: calc(50% - 640px);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
 }
 
 .win_Screen {
-    background-image: url(img/9_intro_outro_screens/win.jpg);
-    background-size: cover;
-    background-position: center;
+    display: block;
+    position: absolute;
     z-index: 3;
+    width: 1280px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.win_Screen img {
     transform: scale(0);
     transition: 500ms;
-    position: absolute;
-    width: 1280px;
-    height: 720px;
-    top: calc(50% - 360px);
-    left: calc(50% - 640px);
+    width: 100%;
+    aspect-ratio: 16 / 9;
 }
 
 .main_box {
@@ -115,15 +126,39 @@ canvas {
     box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.7);
 }
 
-@media only screen and (max-width : 1280px) {
+@media only screen and (max-width : 1300px) {
 
     canvas {
+        width: 100%;
+    }
+
+    .lost_Screen {
+        width: 100%;
+    }
+
+    .start_img {
+        width: 100%;
+    }
+
+    .win_Screen {
         width: 100%;
     }
 }
 
 @media only screen and (max-height : 720px) {
     canvas {
+        height: 100vh;
+    }
+
+    .lost_Screen {
+        height: 100vh;
+    }
+
+    .start_img {
+        height: 100vh;
+    }
+
+    .win_Screen {
         height: 100vh;
     }
 }

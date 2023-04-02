@@ -38,14 +38,19 @@
 
 </head>
 
-<body>
+<body onload="playMusic()">
+    <div class="start_img" id="startimg">
+        <button class="start_button" onclick="startGame()">Start</button>
+        <img src="img/9_intro_outro_screens/start/startscreen_2.png">
+    </div>
+    <div class="lost_Screen">
+        <img id="lostScreen" src="img/9_intro_outro_screens/lose.jpg">
+    </div>
+    <div class="win_Screen">
+        <img id="winScreen" src="img/9_intro_outro_screens/win.jpg">
+    </div>
     <div class="main_box"></div>
     <div class="music_button" id="musicButton" onclick="muteMusic()"><img src="img/icons/speaker.png"></div>
-    <div class="start_img" id="startGame">
-        <button class="start_button" onclick="startGame()">Start</button>
-    </div>
-    <div class="lost_Screen" id="lostScreen"></div>
-    <div class="win_Screen" id="winScreen"></div>
     <div class="end_img"></div>
     <canvas id="canvas" width="1280" height="720"> </canvas>
 </body>
