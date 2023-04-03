@@ -18,7 +18,7 @@ class Chicken extends MoveObject {
         this.x = x 
         this.height = 100;
         this.width = 100;
-        this.speed = 3 + Math.random() * 1
+        this.speed = 3 + Math.random() * 1.5
         this.loadArray(this.imgWalking)
         this.animate();
         this.animateObject();

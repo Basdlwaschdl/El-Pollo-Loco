@@ -4,7 +4,8 @@ let world;
 let ctx;
 let getBottleImg = 0;
 let keyboard = new Keybord;
-let music = true;
+let music = false;
+let fullScreen = false;
 let jump_sound = new Audio('audio/jump.mp3');
 let background_sound = new Audio('audio/bgrMusic.mp3');
 
@@ -78,14 +79,33 @@ function closeInfoBox() {
 
 
 function muteMusic() {
-    if (music) {
-        document.getElementById('musicButton').innerHTML = `<img src="img/icons/mute.png">`;
-        music = false
-        background_sound.pause();
-    } else {
+    if (!music) {
         document.getElementById('musicButton').innerHTML = `<img src="img/icons/speaker.png">`;
-        music = true;
+        music = true
         background_sound.play();
+    } else {
+        document.getElementById('musicButton').innerHTML = `<img src="img/icons/mute.png">`;
+        music = false;
+        background_sound.pause();
+    }
+};
+
+
+function setFullScreen() {
+    let screen = document.getElementById("fullScreen");
+    let e = document.getElementById("mainBox");
+    if (!fullScreen) {
+        fullScreen = true;
+        screen.innerHTML = `<img src="img/icons/exitfullScreen.png">`;
+        if (e.requestFullscreen) {
+            e.requestFullscreen();
+        }
+    } else {
+        screen.innerHTML = `<img src="img/icons/full-Screen.png">`;
+        fullScreen = false;
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
     }
 };
 
@@ -120,6 +140,8 @@ document.addEventListener("keyup", (event) => {
         keyboard.jump = false;
     }
 });
+
+
 
 
 
