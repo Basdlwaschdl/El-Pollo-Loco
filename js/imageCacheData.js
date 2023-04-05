@@ -144,5 +144,10 @@ let imageCacheData = [
 
     'img/icons/mute.png',
     'img/icons/speaker.png',
-    'img/bg.jpg'
+    'img/bg.jpg',
+    'img/icons/up.png',
+    'img/icons/left.png',
+    'img/icons/right.png',
+    'img/icons/full-screen.png',
+    'img/icons/exitfullScreen.png',
 ];

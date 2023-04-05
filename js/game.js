@@ -14,7 +14,7 @@ function startGame() {
     startLevel();
     background_sound.pause();
     document.getElementById('startimg').style.display = 'none';
-    document.getElementById('startimg').style.zIndex = '2';
+    document.getElementById('mobileButtons').style.zIndex = '4';
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     world = new World(canvas, keyboard);
@@ -22,6 +22,7 @@ function startGame() {
 
 
 function endScreen(x) {
+    document.getElementById('mobileButtons').style.zIndex = '1';
     document.getElementById('startimg').style.zIndex = '2';
     setTimeout(() => {
         clearAllIntervals();
@@ -108,38 +109,6 @@ function setFullScreen() {
         }
     }
 };
-
-
-document.addEventListener("keypress", (event) => {
-    if (event.key == 'd') {
-        keyboard.right = true;
-    }
-    if (event.key == 'a') {
-        keyboard.left = true;
-    }
-    if (event.key === ' ') {
-        keyboard.shoot = true;
-    }
-
-    if (event.key == 'w') {
-        keyboard.jump = true;
-    }
-});
-
-document.addEventListener("keyup", (event) => {
-    if (event.key == 'd') {
-        keyboard.right = false;
-    }
-    if (event.key == 'a') {
-        keyboard.left = false;
-    }
-    if (event.key == ' ') {
-        keyboard.shoot = false;
-    }
-    if (event.key == 'w') {
-        keyboard.jump = false;
-    }
-});
 
 
 

@@ -16,7 +16,6 @@
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style.loading.css">
-    <script src="js/mobileButtons.js"></script>
     <script src="js/imageCacheData.js"></script>
     <script src="js/imageCache.js"></script>
     <script src="js/template.js"></script>
@@ -40,10 +39,12 @@
     <script src="models/smallChicken.class.js"></script>
     <script src="Level1/level1.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/key_button.js"></script>
 
 </head>
 
-<body onload="init()">
+<body onload="init(), bindMobileButtons()">
+    <div class="info_rotate"><h2>Please rotate your device</h2></div>
     <div class="loadingScreen" id="loadingScreen">
         <div class="lds-roller">
             <div></div>
@@ -55,6 +56,7 @@
             <div></div>
             <div></div>
         </div>
+        <div id="percent"></div>
     </div>
     <div id="mainBox">
         <div class="start_img" id="startimg">
@@ -99,8 +101,7 @@
             <img id="winScreen" src="img/9_intro_outro_screens/win.jpg">
         </div>
         <div class="main_box"></div>
-        <div class="end_img"></div>
-        <div class="mobile_buttons">
+        <div class="mobile_buttons" id="mobileButtons">
             <div class="action_button_main">
                 <div class="right_left">
                     <div id="mobileLeft"><img class="action_button" src="img/icons/left.png"></div>

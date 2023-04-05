@@ -25,6 +25,9 @@ async function loadAllImages() {
       console.log(`Problem with path: ${path}`)
       console.log(e)
     }
+    let percent = i * 100 / imageCacheData.length;
+    percent = Math.trunc(percent);
+    document.getElementById('percent').innerHTML = `${percent} %`;
   }
   document.getElementById('loadingScreen').style.display = `none`;
 };
