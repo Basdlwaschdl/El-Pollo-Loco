@@ -97,17 +97,31 @@ function setFullScreen() {
     let e = document.getElementById("mainBox");
     if (!fullScreen) {
         fullScreen = true;
+        addClasslist();
         screen.innerHTML = `<img src="img/icons/exitfullScreen.png">`;
         if (e.requestFullscreen) {
             e.requestFullscreen();
         }
     } else {
-        screen.innerHTML = `<img src="img/icons/full-Screen.png">`;
+        screen.innerHTML = `<img src="img/icons/full-screen.png">`;
         fullScreen = false;
+        removeClasslist();
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
     }
+};
+
+
+function addClasslist() {
+    document.getElementById('canvas').classList.add('canvas_full');
+    document.getElementById('startimg').classList.add('canvas_full');
+};
+
+
+function removeClasslist() {
+    document.getElementById('canvas').classList.remove('canvas_full');
+    document.getElementById('startimg').classList.remove('canvas_full');
 };
 
 
