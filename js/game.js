@@ -92,23 +92,33 @@ function muteMusic() {
 };
 
 
-function setFullScreen() {
+function showFullScreen() {
     let screen = document.getElementById("fullScreen");
     let e = document.getElementById("mainBox");
     if (!fullScreen) {
-        fullScreen = true;
-        addClasslist();
-        screen.innerHTML = `<img src="img/icons/exitfullScreen.png">`;
-        if (e.requestFullscreen) {
-            e.requestFullscreen();
-        }
+        setFullscreen(e, screen);
     } else {
-        screen.innerHTML = `<img src="img/icons/full-screen.png">`;
-        fullScreen = false;
-        removeClasslist();
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
+        removeFullscreen();
+    }
+};
+
+
+function setFullscreen(e, screen) {
+    fullScreen = true;
+    addClasslist();
+    screen.innerHTML = `<img src="img/icons/exitfullScreen.png">`;
+    if (e.requestFullscreen) {
+        e.requestFullscreen();
+    }
+};
+
+
+function removeFullscreen() {
+    screen.innerHTML = `<img src="img/icons/full-screen.png">`;
+    fullScreen = false;
+    removeClasslist();
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
     }
 };
 
